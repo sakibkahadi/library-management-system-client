@@ -1,12 +1,28 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 
 const AddBook = () => {
+    const handleAddBook = (e)  =>{
+        e.preventDefault()
+        const form = e.target;
+        const photo = form.photo.value;
+        const bookName = form.bookName.value;
+        const quantity = form.quantity.value;
+        const authorName = form.authorName.value;
+        const category = form.category.value;
+        const rating = form.rating.value;
+        const description = form.description.value;
+        const bookData = {photo, bookName, quantity, authorName, category, rating, description}
+        
+        axios.post('http://localhost:5000/books', bookData)
+        .then(res=>console.log(res.data))
+    }
     return (
         <div>
             <h1 className="text-3xl md:text-6xl font-bold text-center ">Please add a book</h1>
             <div className="card  shadow-2xl bg-base-100">
-                <form  className="card-body ">
+                <form onSubmit={handleAddBook}  className="card-body ">
                     {/* first row  */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div className="form-control">

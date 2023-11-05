@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const Category = ({ cat }) => {
@@ -11,7 +12,10 @@ const Category = ({ cat }) => {
                 <h2 className="card-title">{category}</h2>
                 
                 <div className="card-actions">
+                    <Link to={`/categories/${category}`}>
                     <button className="btn btn-primary">Explore More</button>
+                    </Link>
+                    
                 </div>
             </div>
         </div>
