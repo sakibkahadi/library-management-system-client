@@ -23,7 +23,7 @@ const Navbar = () => {
             <span><li><NavLink to='/addBook'>Add Book</NavLink></li></span>
             <span> <li><NavLink to='/allBook'>All Book</NavLink></li></span>
             <span> <li><NavLink to='/borrowedBook'>Borrowed Book</NavLink></li></span>
-            <button  onClick={handleLogOut}>LogOut</button>
+            <span><li><button  onClick={handleLogOut}>LogOut</button></li></span>
         </div>
         </>:<li><NavLink to='/login'>Log In</NavLink></li> 
         }
