@@ -16,7 +16,7 @@ const SingleBook = () => {
     const [loader, setLoader] = useState(loadedData)
     // const [total, setTotal] = useState({})
     const [total, setTotal] = useState([])
-    const { _id, photo, bookName, quantity, authorName, description } = loader;
+    const { _id, photo, bookName, quantity, authorName, category, description  } = loader;
 
     let amount = quantity;
     //quantity = 5
@@ -28,10 +28,12 @@ const SingleBook = () => {
         const email = user ? user.email : '';
         const name = user ? user.displayName : '';
         const currentDate = e.target.localDate.value
-
+        
         const bookName = loadedData ? loadedData.bookName : '';
+        const photo = loadedData ? loadedData.photo : '';
+        const category = loadedData ? loadedData.category : '';
 
-        const borrowedData = { returnDate, currentDate, email, name, bookName }
+        const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
 
 
 
