@@ -1,5 +1,5 @@
 
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from "../../components/DatePicker";
@@ -92,7 +92,8 @@ const SingleBook = () => {
                         </div>
 
                         {/* Read button */}
-                        <button className="btn btn-primary">Read</button>
+                        <Link to={ `/read/${_id}`}><button className="btn btn-primary">Read</button></Link>
+                        
                     </div>
                 </div>
             </div>

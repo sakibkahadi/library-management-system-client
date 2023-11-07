@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Routes/AuthProvider";
-import { useLoaderData } from "react-router-dom";
+
 
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -8,22 +8,19 @@ import axios from "axios";
 
 const BorrowedBooks = () => {
     const { user } = useContext(AuthContext);
-    // const data = useLoaderData()
+    
     const [borrowedBooks, setBorrowedBooks] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/borrowedBooks')
+        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
             .then(res => setBorrowedBooks(res.data))
-    }, [])
+    }, [user])
 
 
     const handleReturn = (id) => {
         // make sure user is confirm to delete
         const process = confirm('Are you sure You want to Return the Book')
-        axios.get(`http://localhost:5000/books/${id}`)
-        .then(res => {
-            console.log(res.id)
-        })
+        
         if (process) {
             fetch(`http://localhost:5000/borrowedBooks/${id}`, {
                 method: "DELETE"
