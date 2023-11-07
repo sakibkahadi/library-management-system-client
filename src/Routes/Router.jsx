@@ -47,8 +47,9 @@ const Router = createBrowserRouter([
           {
             path:'/borrowedBooks',
             element:<PrivateRoute><BorrowedBooks></BorrowedBooks></PrivateRoute>,
-            loader: ()=>fetch('http://localhost:5000/borrowedBooks')
-          }
+            // loader: ({params})=>fetch(`http://localhost:5000/books/${params.id}`)
+          },
+          
 
       ]
     },

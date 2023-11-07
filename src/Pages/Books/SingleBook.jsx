@@ -11,19 +11,15 @@ import axios from "axios";
 
 const SingleBook = () => {
     const { user } = useContext(AuthContext)
-    const [disable, setDisable] = useState(true)
     const loadedData = useLoaderData()
     const [loader, setLoader] = useState(loadedData)
     // const [total, setTotal] = useState({})
     const [total, setTotal] = useState([])
     const { _id, photo, bookName, quantity, authorName, category, description  } = loader;
-
     let amount = quantity;
     //quantity = 5
 
-    const handleBorrow = (e) => {
-
-        
+    const handleBorrow = (e) => {     
         const returnDate = e.target.returnDate.value
         const email = user ? user.email : '';
         const name = user ? user.displayName : '';
@@ -35,8 +31,6 @@ const SingleBook = () => {
 
         const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
 
-
-
         axios.post('http://localhost:5000/borrowedBooks', borrowedData)
             .then(res => {
                 if (res.data.acknowledged) {
@@ -44,8 +38,6 @@ const SingleBook = () => {
                 }
 
             })
-
-
         amount = parseInt(amount) - 1;
         const send = JSON.stringify(amount)
         console.log(send)
@@ -63,21 +55,7 @@ const SingleBook = () => {
                 }
                 console.log(data)
             })
-        // axios.put(`http://localhost:5000/books/${_id}` )
-        //     .then(res => {
-
-        //         console.log(res.data)
-        //     })
-
-
-
-
-        // const newTotal = parseInt(total)-1;
-        // setTotal(newTotal)
-        // console.log(newTotal)
-        // if(newTotal<=4 ){
-        //     return alert('hi')
-        // }
+        
 
 
     }
@@ -91,7 +69,7 @@ const SingleBook = () => {
                 <div className="card-body">
                     <h2 className="card-title">Author: {authorName}</h2>
                     <p>Quantity: {quantity}</p>
-                    <p>{description}</p>
+                    
 
         
 
