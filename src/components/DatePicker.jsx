@@ -4,7 +4,7 @@ import ReactDatePicker from "react-datepicker";
 
 
 
-const DatePicker = ({handleBorrow, quantity}) => {
+const DatePicker = ({handleBorrow, quantity, userBooks }) => {
     
     
     const [selectLocalDate, setSelectedLocalDate] = useState(null)
@@ -64,7 +64,8 @@ const DatePicker = ({handleBorrow, quantity}) => {
                     
 
                 </div>
-                <button type="submit" className="btn mt-6 btn-success">Submit</button>
+                 <button type="submit" className="btn mt-6 btn-success">Submit</button>
+                
             </form>
         </div>
 

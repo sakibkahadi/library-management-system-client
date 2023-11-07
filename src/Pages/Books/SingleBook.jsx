@@ -13,24 +13,31 @@ const SingleBook = () => {
     const { user } = useContext(AuthContext)
     const loadedData = useLoaderData()
     const [loader, setLoader] = useState(loadedData)
-    // const [total, setTotal] = useState({})
+    const [userBooks, setUserBooks] = useState([])
     const [total, setTotal] = useState([])
-    const { _id, photo, bookName, quantity, authorName, category, description  } = loader;
+    const { _id, photo, bookName, quantity, authorName, category, description } = loader;
     let amount = quantity;
+   
     //quantity = 5
+    useEffect(() => {
+        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
+            .then(res => setUserBooks(res.data))
+    }, [user])
+  
+    const find = userBooks.filter(book => book.bookName == bookName)
 
-    const handleBorrow = (e) => {     
-        const returnDate = e.target.returnDate.value
+    const handleBorrow = (e) => {
+        
+        if(find.length==0){
+            setUserBooks(find)
+            const returnDate = e.target.returnDate.value
         const email = user ? user.email : '';
         const name = user ? user.displayName : '';
         const currentDate = e.target.localDate.value
-        
         const bookName = loadedData ? loadedData.bookName : '';
         const photo = loadedData ? loadedData.photo : '';
         const category = loadedData ? loadedData.category : '';
-
         const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
-
         axios.post('http://localhost:5000/borrowedBooks', borrowedData)
             .then(res => {
                 if (res.data.acknowledged) {
@@ -40,7 +47,7 @@ const SingleBook = () => {
             })
         amount = parseInt(amount) - 1;
         const send = JSON.stringify(amount)
-        console.log(send)
+
         fetch(`http://localhost:5000/books/${_id}`, {
             method: "PATCH",
             headers: {
@@ -55,10 +62,19 @@ const SingleBook = () => {
                 }
                 console.log(data)
             })
+        }
         
 
-
+        if(find.length==1){
+            alert('you already have this ')
+        }
+        
+        
     }
+
+
+
+
 
 
     return (
@@ -69,31 +85,31 @@ const SingleBook = () => {
                 <div className="card-body">
                     <h2 className="card-title">Author: {authorName}</h2>
                     <p>Quantity: {quantity}</p>
-                    
 
-        
+
+
 
                     {/* borrow button */}
                     <div className="card-actions justify-start gap-10">
                         <div>
                             {/* The button to open modal */}
-                           
-                            {quantity==0 ? <button className="btn">Borrow</button>:  <label htmlFor="my_modal_7" className="btn">Borrow</label>}
+
+                            {quantity == 0 ? <button className="btn">Borrow</button> : <label htmlFor="my_modal_7" className="btn">Borrow</label>}
 
                             {/* Put this part before </body> tag */}
                             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                             <div className="modal">
                                 <div className="modal-box h-96 flex justify-center  text-center">
 
-                                    <DatePicker handleBorrow={handleBorrow} quantity={quantity}></DatePicker>
+                                    <DatePicker userBooks={userBooks} handleBorrow={handleBorrow} quantity={quantity}></DatePicker>
                                 </div>
                                 <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                             </div>
                         </div>
 
                         {/* Read button */}
-                        <Link to={ `/read/${_id}`}><button className="btn btn-primary">Read</button></Link>
-                        
+                        <Link to={`/books/${_id}`}><button className="btn btn-primary">Read</button></Link>
+
                     </div>
                 </div>
             </div>
