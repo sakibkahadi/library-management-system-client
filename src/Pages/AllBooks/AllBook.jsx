@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 
 const AllBook = ({book}) => {
-    const {_id, photo, bookName, rating, quantity, authorName, category, description } = book
+    const {_id, photo, bookName, rating, quantity, authorName, category, description } = book;
+    
     return (
         <div className="card lg:card-side bg-base-100 shadow-xl">
             <figure><img className='h-[400px] w-[350px] lg:w-[300px]' src={photo} alt="Album" /></figure>
@@ -15,7 +16,7 @@ const AllBook = ({book}) => {
                 </div>
                 <p>{quantity}</p>
                 <div className="card-actions justify-end ">
-                    <Link ><button className="btn btn-primary mt-12 ">Show Details</button></Link>
+                    <Link to={`/allBooks/${_id}`} ><button className="btn btn-primary mt-12 ">Update</button></Link>
                     
                 </div>
             </div>
