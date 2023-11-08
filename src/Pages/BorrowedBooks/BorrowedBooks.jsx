@@ -12,15 +12,18 @@ const BorrowedBooks = () => {
     const [borrowedBooks, setBorrowedBooks] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
+        axios.get(`http://localhost:5000/borrowedBooks?email=${user?.email}`)
             .then(res => setBorrowedBooks(res.data))
-    }, [user])
+    }, [])
 
 
     const handleReturn = (id) => {
         // make sure user is confirm to delete
         const process = confirm('Are you sure You want to Return the Book')
-        
+        axios.get(`http://localhost:5000/books/${id}`)
+        .then(res => {
+            console.log(res.data)
+        })
         if (process) {
             fetch(`http://localhost:5000/borrowedBooks/${id}`, {
                 method: "DELETE"

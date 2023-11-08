@@ -15,7 +15,7 @@ const AddBook = () => {
         const description = form.description.value;
         const bookData = {photo, bookName, quantity, authorName, category, rating, description}
         
-        axios.post('http://localhost:5000/books', bookData)
+        axios.post('http://localhost:5000/books', bookData, {withCredentials:true})
         .then(res=>console.log(res.data))
     }
     return (

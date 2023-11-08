@@ -1,19 +1,25 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import Book from "./AllBook";
+import { useEffect, useState } from "react";
+
 import AllBook from "./AllBook";
+import axios from "axios";
 
 
 const AllBooks = () => {
-    const loadedData = useLoaderData()
-    const [allBooks, setAllBooks] = useState(loadedData)
+    
+    const [allBooks, setAllBooks] = useState([])
 
+    useEffect(()=>{
+        axios.get('http://localhost:5000/allBooks', )
+        .then(res=>setAllBooks(res.data))
+    },[])
     const [button1Color, setButton1Color] = useState('blue');
     const [button2Color, setButton2Color] = useState('red');
 
     
     const handleAll = () => {
-        setAllBooks(loadedData)
+        axios.get('http://localhost:5000/allBooks')
+        .then(res=>setAllBooks(res.data))
+        
         setButton1Color('blue');
         setButton2Color('red');
     }
@@ -24,6 +30,7 @@ const AllBooks = () => {
         setButton1Color('red');
         setButton2Color('blue');
     }
+    
     return (
         <div>
             <h1 className="text-2xl md:text-4xl lg:text-6xl text-center font-bold mb-10"> Books</h1>

@@ -27,7 +27,9 @@ const SingleBook = () => {
     const find = userBooks.filter(book => book.bookName == bookName)
 
     const handleBorrow = (e) => {
-        
+        if(find.length==1){
+            return  alert('you already have this ')
+          }
         if(find.length==0){
             setUserBooks(find)
             const returnDate = e.target.returnDate.value
@@ -65,9 +67,7 @@ const SingleBook = () => {
         }
         
 
-        if(find.length==1){
-            alert('you already have this ')
-        }
+        
         
         
     }
