@@ -18,7 +18,7 @@ const UpdatedBooks = () => {
         const description = form.description.value;
         const bookData = { photo, bookName, quantity, authorName, category, rating, description }
 
-        axios.put(`http://localhost:5000/allBooks/${_id}`, bookData)
+        axios.put(`https://libary-management-system-server.vercel.app/allBooks/${_id}`, bookData)
             .then(res => {
                 if(res.data.modifiedCount){
                     Swal.fire({

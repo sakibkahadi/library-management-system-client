@@ -10,7 +10,7 @@ const Books = () => {
     
     const [booksData, setBooksData] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:5000/books')
+        axios.get('https://libary-management-system-server.vercel.app/books')
         .then(res=>{
             setBooksData(res.data)
         })

@@ -40,22 +40,22 @@ const Router = createBrowserRouter([
           {
             path: '/categories/:category',
             element: <PrivateRoute><Books></Books></PrivateRoute>,
-            loader: ()=>fetch('http://localhost:5000/booksCategory')
+            loader: ()=>fetch('https://libary-management-system-server.vercel.app/booksCategory')
           },
           {
             path:'/books/:id',
             element:<PrivateRoute><SingleBook></SingleBook></PrivateRoute>,
-            loader: ({params})=>fetch(`http://localhost:5000/books/${params.id}`)
+            loader: ({params})=>fetch(`https://libary-management-system-server.vercel.app/books/${params.id}`)
           },
           {
             path:'/borrowedBooks',
             element:<PrivateRoute><BorrowedBooks></BorrowedBooks></PrivateRoute>,
-            // loader: ({params})=>fetch(`http://localhost:5000/books/${params.id}`)
+            // loader: ({params})=>fetch(`https://libary-management-system-server.vercel.app/books/${params.id}`)
           },
           {
             path:'/reads/:id',
             element:<PrivateRoute><Read></Read></PrivateRoute>,
-           loader: ({params})=>fetch(`http://localhost:5000/books/${params.id}`)
+           loader: ({params})=>fetch(`https://libary-management-system-server.vercel.app/books/${params.id}`)
           },
           {
             path:'/allBooks',
@@ -65,7 +65,7 @@ const Router = createBrowserRouter([
           {
             path:'/allBooks/:id',
             element:<PrivateRoute><UpdatedBooks></UpdatedBooks></PrivateRoute> ,
-            loader:({params})=>fetch(`http://localhost:5000/allBooks/${params.id}`, {credentials:"include"})
+            loader:({params})=>fetch(`https://libary-management-system-server.vercel.app/allBooks/${params.id}`, {credentials:"include"})
             
           }
 

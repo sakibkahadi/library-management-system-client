@@ -22,7 +22,7 @@ const SingleBook = () => {
 
     //quantity = 5
     useEffect(() => {
-        axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
+        axios.get(`https://libary-management-system-server.vercel.app/borrowedBooks?email=${user.email}`)
             .then(res => setUserBooks(res.data))
     }, [user])
 
@@ -62,7 +62,7 @@ const SingleBook = () => {
             const photo = loadedData ? loadedData.photo : '';
             const category = loadedData ? loadedData.category : '';
             const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
-            axios.post('http://localhost:5000/borrowedBooks', borrowedData)
+            axios.post('https://libary-management-system-server.vercel.app/borrowedBooks', borrowedData)
                 .then(res => {
                     if (res.data.acknowledged) {
                         Swal.fire({
@@ -78,7 +78,7 @@ const SingleBook = () => {
             amount = parseInt(amount) - 1;
             const send = JSON.stringify(amount)
 
-            fetch(`http://localhost:5000/books/${_id}`, {
+            fetch(`https://libary-management-system-server.vercel.app/books/${_id}`, {
                 method: "PATCH",
                 headers: {
                     'content-type': 'application/json'

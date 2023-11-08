@@ -12,7 +12,7 @@ const BorrowedBooks = () => {
     const [borrowedBooks, setBorrowedBooks] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/borrowedBooks?email=${user?.email}`)
+        axios.get(`https://libary-management-system-server.vercel.app/borrowedBooks?email=${user?.email}`)
             .then(res => setBorrowedBooks(res.data))
     }, [])
 
@@ -36,7 +36,7 @@ const BorrowedBooks = () => {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/borrowedBooks/${id}`, {
+                fetch(`https://libary-management-system-server.vercel.app/borrowedBooks/${id}`, {
                     method: "DELETE"
                 })
     
@@ -67,7 +67,7 @@ const BorrowedBooks = () => {
                 });
             }
         });
-        axios.get(`http://localhost:5000/books/${id}`)
+        axios.get(`https://libary-management-system-server.vercel.app/books/${id}`)
             .then(res => {
                 console.log(res.data)
             })

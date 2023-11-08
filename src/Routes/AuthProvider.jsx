@@ -40,13 +40,13 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
             if (currentUser) {
 
-                axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
+                axios.post('https://libary-management-system-server.vercel.app/jwt', loggedUser, { withCredentials: true })
                     .then(res => {
                         console.log(res.data)
                     })
             }
             else {
-                axios.post('http://localhost:5000/logOut', loggedUser, {
+                axios.post('https://libary-management-system-server.vercel.app/logOut', loggedUser, {
                     withCredentials: true
                 })
                 .then(res=>{

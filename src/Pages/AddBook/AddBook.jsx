@@ -16,7 +16,7 @@ const AddBook = () => {
         const description = form.description.value;
         const bookData = {photo, bookName, quantity, authorName, category, rating, description}
         
-        axios.post('http://localhost:5000/books', bookData, {withCredentials:true})
+        axios.post('https://libary-management-system-server.vercel.app/books', bookData, {withCredentials:true})
         .then(res=>{
             if(res.data.acknowledged){
                 Swal.fire({

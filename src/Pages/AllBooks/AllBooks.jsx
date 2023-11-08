@@ -9,7 +9,7 @@ const AllBooks = () => {
     const [allBooks, setAllBooks] = useState([])
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/allBooks', )
+        axios.get('https://libary-management-system-server.vercel.app/allBooks', )
         .then(res=>setAllBooks(res.data))
     },[])
     const [button1Color, setButton1Color] = useState('blue');
@@ -17,7 +17,7 @@ const AllBooks = () => {
 
     
     const handleAll = () => {
-        axios.get('http://localhost:5000/allBooks')
+        axios.get('https://libary-management-system-server.vercel.app/allBooks')
         .then(res=>setAllBooks(res.data))
         
         setButton1Color('blue');
