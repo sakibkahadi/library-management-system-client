@@ -34,7 +34,7 @@ const AllBooks = () => {
     return (
         <div>
             <h1 className="text-2xl md:text-4xl lg:text-6xl text-center font-bold mb-10"> Books</h1>
-            <div className="flex justify-end">
+            <div className="flex justify-center md:mr-10 md:justify-end">
                 <div>
                     <p className="text-red-800 text-sm md:text-lg text-center lg:text-2xl mb-5">Filtered By Quantity </p>
                     <div className="flex gap-10 justify-center mb-10">

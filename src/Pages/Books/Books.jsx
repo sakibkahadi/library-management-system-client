@@ -17,10 +17,13 @@ const Books = () => {
     },[])
     const books = booksData.filter(book => book.category === category);
     return (
-        <div className="grid gap-5 md:grid-cols-2">
+        <div>
+            
+            <div className="grid gap-5 md:grid-cols-2">
             {
                 books.map(book=><Book key={book._id} book={book}></Book>)
             }
+        </div>
         </div>
     );
 };

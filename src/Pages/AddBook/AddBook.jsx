@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const AddBook = () => {
@@ -16,7 +17,17 @@ const AddBook = () => {
         const bookData = {photo, bookName, quantity, authorName, category, rating, description}
         
         axios.post('http://localhost:5000/books', bookData, {withCredentials:true})
-        .then(res=>console.log(res.data))
+        .then(res=>{
+            if(res.data.acknowledged){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Congratulation!!',
+                    text: 'Successfully Added The Book',
+                    
+                  })
+                  form.reset()
+            }
+        })
     }
     return (
         <div>

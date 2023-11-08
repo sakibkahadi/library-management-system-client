@@ -7,6 +7,8 @@ import DatePicker from "../../components/DatePicker";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Routes/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
+import Rating from "../../components/Rating";
 
 
 const SingleBook = () => {
@@ -17,59 +19,86 @@ const SingleBook = () => {
     const [total, setTotal] = useState([])
     const { _id, photo, bookName, quantity, authorName, category, description } = loader;
     let amount = quantity;
-   
+
     //quantity = 5
     useEffect(() => {
         axios.get(`http://localhost:5000/borrowedBooks?email=${user.email}`)
             .then(res => setUserBooks(res.data))
     }, [user])
-  
+
     const find = userBooks.filter(book => book.bookName == bookName)
+    console.log(quantity)
 
-    const handleBorrow = (e) => {
-        if(find.length==1){
-            return  alert('you already have this ')
-          }
-        if(find.length==0){
-            setUserBooks(find)
-            const returnDate = e.target.returnDate.value
-        const email = user ? user.email : '';
-        const name = user ? user.displayName : '';
-        const currentDate = e.target.localDate.value
-        const bookName = loadedData ? loadedData.bookName : '';
-        const photo = loadedData ? loadedData.photo : '';
-        const category = loadedData ? loadedData.category : '';
-        const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
-        axios.post('http://localhost:5000/borrowedBooks', borrowedData)
-            .then(res => {
-                if (res.data.acknowledged) {
-                    console.log("hhiii")
-                }
+    const handleDisable = () => {
+        if (quantity == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!!',
+                text: 'Currently Not available ',
 
-            })
-        amount = parseInt(amount) - 1;
-        const send = JSON.stringify(amount)
-
-        fetch(`http://localhost:5000/books/${_id}`, {
-            method: "PATCH",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({ quantity: send })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount) {
-                    setTotal(amount)
-                }
-                console.log(data)
             })
         }
-        
+    }
 
-        
-        
-        
+    const handleBorrow = (e) => {
+        e.preventDefault()
+        if (find.length == 1) {
+            return (
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Warning!!',
+                    text: 'You already borrowed this book ',
+
+                })
+            )
+        }
+        if (find.length == 0) {
+            setUserBooks(find)
+            const returnDate = e.target.returnDate.value
+            const email = user ? user.email : '';
+            const name = user ? user.displayName : '';
+            const currentDate = e.target.localDate.value
+            const bookName = loadedData ? loadedData.bookName : '';
+            const photo = loadedData ? loadedData.photo : '';
+            const category = loadedData ? loadedData.category : '';
+            const borrowedData = { returnDate, currentDate, email, name, bookName, photo, category }
+            axios.post('http://localhost:5000/borrowedBooks', borrowedData)
+                .then(res => {
+                    if (res.data.acknowledged) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Congratulation',
+                            text: 'Successfully Borrowed a Book',
+
+                        })
+
+                    }
+
+                })
+            amount = parseInt(amount) - 1;
+            const send = JSON.stringify(amount)
+
+            fetch(`http://localhost:5000/books/${_id}`, {
+                method: "PATCH",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ quantity: send })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.modifiedCount) {
+                        setTotal(amount)
+                    }
+                    console.log(data)
+                })
+        }
+        setLoader(loadedData)
+
+
+
+
+
     }
 
 
@@ -84,7 +113,7 @@ const SingleBook = () => {
                 <figure><img className="h-[400px] w-[350px] lg:w-[450px]" src={photo} alt="Album" /></figure>
                 <div className="card-body">
                     <h2 className="card-title">Author: {authorName}</h2>
-                    <p>Quantity: {quantity}</p>
+                    
 
 
 
@@ -94,7 +123,7 @@ const SingleBook = () => {
                         <div>
                             {/* The button to open modal */}
 
-                            {quantity == 0 ? <button className="btn">Borrow</button> : <label htmlFor="my_modal_7" className="btn">Borrow</label>}
+                            {quantity == 0 ? <button onClick={handleDisable} className="btn">Borrow</button> : <label htmlFor="my_modal_7" className="btn">Borrow</label>}
 
                             {/* Put this part before </body> tag */}
                             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
@@ -108,7 +137,7 @@ const SingleBook = () => {
                         </div>
 
                         {/* Read button */}
-                        <Link to={`/books/${_id}`}><button className="btn btn-primary">Read</button></Link>
+                        <Link to={`/reads/${_id}`}><button className="btn btn-primary">Read</button></Link>
 
                     </div>
                 </div>

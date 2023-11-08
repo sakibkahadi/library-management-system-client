@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const UpdatedBooks = () => {
@@ -18,7 +19,24 @@ const UpdatedBooks = () => {
         const bookData = { photo, bookName, quantity, authorName, category, rating, description }
 
         axios.put(`http://localhost:5000/allBooks/${_id}`, bookData)
-            .then(res => {console.log(res.data)})
+            .then(res => {
+                if(res.data.modifiedCount){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Congratulation',
+                        text: 'Successfully Updated The Book',
+                        
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'opps! ',
+                        text: 'This is already Updated',
+                        
+                      })
+                }
+            })
     }
     return (
         <div>
